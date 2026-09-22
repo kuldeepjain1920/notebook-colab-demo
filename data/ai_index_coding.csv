@@ -1,0 +1,11 @@
+model,score_pct,source
+Claude 4.5 Opus (high reasoning),76.8,AI Index 2026 Fig 2.5.1 p.101
+MiniMax M2.5 (high reasoning),75.8,AI Index 2026 Fig 2.5.1 p.101
+Gemini 3 Flash (high reasoning),75.8,AI Index 2026 Fig 2.5.1 p.101
+Claude Opus 4.6,75.6,AI Index 2026 Fig 2.5.1 p.101
+GPT-5-2 Codex,72.8,AI Index 2026 Fig 2.5.1 p.101
+GLM-5 (high reasoning),72.8,AI Index 2026 Fig 2.5.1 p.101
+GPT-5-2 (high reasoning),72.8,AI Index 2026 Fig 2.5.1 p.101
+GPT 5.2 Codex,72.8,AI Index 2026 Fig 2.5.1 p.101
+Claude 4.5 Sonnet (high reasoning),71.4,AI Index 2026 Fig 2.5.1 p.101
+Kimi K2.5 (high reasoning),70.8,AI Index 2026 Fig 2.5.1 p.101
