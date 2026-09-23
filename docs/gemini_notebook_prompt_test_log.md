@@ -1,8 +1,8 @@
 # Gemini Notebook Demo: Prompt Test Log
 
-Record of the four prompts run in the demo notebook: what each one is for, what we expected, what came back, and what to say (and not say) on stage.
+Record of the four core prompts run in the demo notebook: what each one is for, what we expected, what came back, and what to say (and not say) on stage. Also covers two follow-up prompts, the Colab dry run, and the general-chatbot baseline.
 
-**Last updated:** September 2026 (final run of all four prompts)
+**Last updated:** September 2026 (all core and follow-up prompts run; Colab dry run and chatbot baseline complete)
 
 ---
 
@@ -66,7 +66,7 @@ Both facts carried a citation chip to the playbook (chip 1 in the screenshot).
 
 Because these numbers exist only in your private Doc, a general chatbot cannot know them. The contrast between its guess and the notebook's cited answer is the whole point of this segment.
 
-**Still to do:** capture a general-chatbot answer to the same question as a baseline screenshot, and click the chip to confirm it opens the Doc at the right line.
+**Chatbot baseline: done.** See section 10 for the ChatGPT run and the exact wording to use on stage.
 
 ---
 
@@ -109,7 +109,7 @@ Using only my sources, answer two questions: (1) what tool should our team use f
 |---|---|
 | Playbook and video agree on terminal agents | Correct |
 | Report "not addressed" on tools | Correct (the report says nothing about specific coding tools) |
-| Video "not addressed" on benchmarks | Correct, and important (see iteration history) |
+| Video "not addressed" on benchmarks | Correct, and confirmed independently (see section 12) |
 | Report gets a real answer on benchmarks | Correct |
 | Verdict | **Pass** |
 
@@ -128,7 +128,7 @@ Using only my sources, answer two questions: (1) what tool should our team use f
 - "Significant caution and skepticism" is the notebook's summary. The report's own tone is that benchmark limitations are more visible. Safe phrasing: "the report raises reliability concerns."
 - "Gaming" is the notebook's word. The report says Arena standing "may partly reflect adaptation to the platform" (p. 72).
 
-**Video wording:** the "heavy lifters" chapter is confirmed (3:23). The Claude Code customization and Codex delegation lines are deferred. See section 9.
+**Video wording:** the "heavy lifters" chapter is confirmed (3:23). The Claude Code customization and Codex delegation lines are still deferred. See section 12.
 
 ---
 
@@ -181,7 +181,7 @@ Verdict expected: the AI Index report, because it is the only source with eviden
 | "Reduce outages by 44%" | "Reported 44% fewer AI-related outages" | The video cites a survey. It shows correlation, not cause, and comes from a vendor-linked source. |
 | 42% invalid questions | "Up to 42% on a math benchmark" | It is GSM8K, not a coding benchmark. |
 
-**Video wording:** the Sonar/SonarQube details, the 44% figure and the "about two tools" survey are confirmed against the transcript. See section 9 for timestamps and the exact wording to use.
+**Video wording:** the SonarQube 44% figure, the quality-gate/dependency/secret-scanning details, and the two-tools survey are all confirmed against the transcript. See section 12.
 
 ---
 
@@ -219,7 +219,49 @@ This question was chosen because the staging soak is the only staging detail in 
 
 ---
 
-## 6. Iteration history
+## 6. Follow-up: SWE-bench Spread
+
+**Note title:** SWE-bench Spread
+**Demo segment:** Supports 6:00 to 8:30 and 8:30 to 11:00 (gives the exact numbers behind the benchmark-rule disagreement)
+**Purpose:** Get the report's own coding-specific numbers, rather than relying on the general benchmark-caution language from Prompt 2.
+
+### Prompt
+
+```
+What does the report say specifically about SWE-bench Verified results, and how far apart are the top models? Answer only from the report and cite it.
+```
+
+### Expected result
+
+Top score about 76.8%, and the top models within a few points, cited to p. 100 or 101.
+
+### What we received
+
+- **Performance vs. human baseline:** measured as a percentage of the established human baseline, model performance on SWE-bench Verified accelerated rapidly from approximately 60% in 2024 to close to 100% in 2025.
+- **Raw benchmark performance:** in absolute solve rates, top-performing models score in the low-to-mid 70s, led by Claude 4.5 Opus (high reasoning) at approximately 76.8%.
+- **Distance between top models:** the top models are tightly clustered within a few points, with the leading group between 70% and 76.8% (a spread of roughly 6 points), part of a broader trend of top-tier frontier models scoring within a narrow band.
+
+### Explanation
+
+| Check | Result |
+|---|---|
+| 60% (2024) to near 100% (2025), measured against the human baseline | Correct (p. 75 says this almost word for word; p. 10 adds "in a single year") |
+| Top models in the low-to-mid 70s | Correct (p. 100) |
+| Claude 4.5 Opus (high reasoning) leads at about 76.8% | Correct (p. 100 and Figure 2.5.1, p. 101) |
+| Leading group between 70.8% and 76.8%, about a 6-point spread | Correct (chart shows 70.8% to 76.8%; the answer rounded the low end to 70%) |
+| "Part of a broader trend across technical benchmarks" | **Overreach.** The report's support for this is the Arena leaderboard (a human-voting chat ranking), not SWE-bench or technical benchmarks generally (p. 72, p. 78) |
+| Verdict | **Pass, with one line to trim** |
+
+**Wording for the talk**
+
+- **Lead with the absolute numbers first:** "the top ten score between about 71% and 77% on SWE-bench Verified, within about 6 points," before mentioning the 60%-to-100% figure. Said in the other order, "near 100%" can sound like the benchmark is solved, when the report actually says models are still below the human baseline (p. 75).
+- **Don't say "saturated."** The 60%-to-100% figure is scaled to the human baseline, not the share of tasks solved.
+- **If you mention the broader-convergence claim,** say "models are also converging on the Arena leaderboard," not "across technical benchmarks."
+- Use this as the bridge into Rule 4: a 6-point spread between the top ten is thin evidence for "pick the top-ranked tool."
+
+---
+
+## 7. Iteration history
 
 | Stage | What happened | What we changed |
 |---|---|---|
@@ -227,13 +269,14 @@ This question was chosen because the staging soak is the only staging detail in 
 | First conflict run | Over-reached: called the report's evidence "peer-reviewed" (it cites an arXiv preprint), added an unrelated belief-versus-fact benchmark, and credited the report with views on quality gates and tool counts. | Added the "not addressed" rule and scoped the verdict to benchmark-reliability evidence only. |
 | Second conflict run | Still filled the report's cells with padding (88% adoption, governance frameworks). | Added "Do not go beyond what the sources state" and the strict topic structure. |
 | Second synthesis run | Marked the report "not addressed" on benchmark weight and added a "rather than" inference about the video. | Reworded question 2 to "what does each source say about..." and added "Do not add explanations for sources marked not addressed". |
-| Final run | All four prompts pass. | Ready to present. |
+| Final core run | All four core prompts pass. | Moved to follow-ups: SWE-bench Spread, video citation checks, Colab dry run, chatbot baseline. |
+| SWE-bench Spread run | Correctly scoped the human-baseline figure, but over-extended the convergence claim to "technical benchmarks" generally. | Noted as a one-line trim; no re-run needed since the fix is just wording on stage. |
 
 **Main lesson for the talk:** the notebook is grounded, but it still summarizes, and its summaries can stretch a source. That is why the demo clicks the citations.
 
 ---
 
-## 7. AI Index 2026 facts for the demo
+## 8. AI Index 2026 facts for the demo
 
 **Safe to quote**
 
@@ -242,52 +285,92 @@ This question was chosen because the staging soak is the only staging detail in 
 | SWE-bench Verified top-10 models span 70.8% to 76.8% (about 6 points); top score Claude 4.5 Opus (high reasoning) at 76.8% in Feb 2026 | p. 100 to 101 |
 | Chart uses only results from one shared agent setup, so differences reflect the model rather than the surrounding system | p. 101 (footnote 21) |
 | Models are still below the human baseline on SWE-bench Verified | p. 75 |
+| Performance vs. human baseline rose from about 60% (2024) to near 100% (2025) | p. 75, p. 10 |
 | "Strong benchmark performance does not always translate to real-world utility" | p. 79 |
 | Third-party tests have documented models scoring lower than developer-reported results | p. 79 |
 | Invalid question rates range from 2% (MMLU Math) to 42% (GSM8K) | p. 72 |
+| Arena leaderboard standing "may partly reflect adaptation to the platform" | p. 72 |
 
 **Avoid or handle with care**
 
 | Item | Why |
 |---|---|
-| "SWE-bench went from 60% to near 100%" | That figure is scaled to the human baseline, not the share of tasks solved. It does not mean the benchmark is saturated. |
+| "SWE-bench went from 60% to near 100%" said on its own | Say the absolute numbers (70.8% to 76.8%) first, or add "measured against the human baseline" every time. Does not mean the benchmark is saturated, and the report says models are still below the human baseline. |
 | HumanEval | Does not appear in the report. |
 | ClockBench top-model score | The report gives 50.1% on p. 10 but 50.6% in the chapter text (p. 72 and the chapter body), and human accuracy as 90.1% in text versus 90.70% in the chart. Quote the chapter body number or skip it. |
+| "Part of a broader trend across technical benchmarks" | The report's support for convergence is the Arena leaderboard specifically, not technical benchmarks in general. |
 
 ---
 
-## 8. Remaining checklist
+## 9. Colab dry run
+
+**Demo segment:** 15:00 to 30:00 (Colab half)
+**Status: complete.** All steps below were run and confirmed working.
+
+| Step | Result |
+|---|---|
+| Architecture check (Cell 1) | Confirms the code runs on a remote Colab VM, not the presenter's laptop |
+| GPU timing cell | CUDA available: True. GPU: Tesla T4. Matrix size: 4096 x 4096. CPU time: 2.5324 sec. GPU time: 0.0394 sec. **Speedup: 64.2x.** |
+| Mount Drive and load data (Cell 2) | `ai_index_coding.csv` loads correctly from `MyDrive/demo/`; falls back to the sample housing dataset if the path is missing |
+| Code generation entry point | Empty code cell shows "Start coding or **generate** with AI." Click **generate**, type the prompt, press Enter. (Not "Ctrl + Space" as the old deck claimed.) |
+| Plot prompt | "Plot df as a horizontal bar chart of score_pct by model, sorted so the highest score is at the top. Start the x-axis at 0, label each bar with its value, and add a text annotation showing the gap between the highest and lowest score." Ran correctly. |
+| Ties/tiers variation | "Using df, make a horizontal bar chart of score_pct by model with the highest score at the top. Color the bars by score so models with the same score share a color, and add a legend. Label each bar with its value and add a note showing how many models are tied at each shared score." Ran correctly: **4 models tied at 72.8%, 2 models tied at 75.8%**, legend and annotation both correct against the CSV. |
+| Planted error (Cell 3, `df['scor_pct']`) | Raises a KeyError as expected |
+| Explain Error | Confirmed working: button appears under the failed cell's output |
+| Save a copy in Drive | Confirmed: defaults to the Colab Notebooks folder, or back to the folder it was opened from |
+| Locate in Drive | Confirmed: opens Drive and highlights the exact file |
+| Download .ipynb | Confirmed: saves to the browser's default Downloads folder |
+| Share button | Confirmed working (tested, not actually shared) |
+
+**Wording for stage:** "The plug-in checks quality gate status, dependency risks and code coverage, and scans for secrets before content reaches the model" (see section 12 for the exact transcript wording this is based on).
+
+**Backup:** after the final rehearsal run, use File → Download → Download .ipynb to keep a local copy with all outputs already showing, in case Wi-Fi or Drive fails live.
+
+---
+
+## 10. General-chatbot baseline
+
+**Demo segment:** 0:00 to 3:00 (why grounding matters)
+**Status: complete.**
+
+### Prompt (run in ChatGPT, fresh chat, no uploads)
+
+```
+How many human reviewers does our playbook require for AI-generated changes to payments code, and what else is required before merge?
+```
+
+### What we received
+
+ChatGPT said it found public AI-code-review guidance but not the organization's specific playbook, so it could not reliably state the required reviewer count. It cited public policies varying: one calling for two independent humans, another for "3/3 sign-offs," for high-stakes payments changes. It offered to check a connected GitHub repository and listed generic pre-merge requirements (human/code-owner approval, passing CI, security scans, spec verification, rollback plan, no unresolved blocking findings).
+
+### Explanation
+
+| Check | Result |
+|---|---|
+| Invents the organization's specific policy | No — it explicitly declined to state a reviewer count |
+| Gives generic, publicly sourced guidance instead | Yes |
+| Overlaps by coincidence with the real numbers (3 reviewers, 48 hours) | Partial — one cited public policy mentions "3/3 sign-offs," and it separately named "24-48 hours" as a common soak window, but always framed as external guidance, not as the organization's rule |
+| Verdict | **Pass, but frame carefully (see below)** |
+
+**Wording for stage:** don't set this up as "watch it invent a wrong answer," it doesn't. Say instead: "It's honest about not knowing our specific policy, and gives good general guidance. But 'good general guidance' still isn't our rule, and it can't tell me which of the several numbers it found is actually the one that applies here. The notebook can, with a citation." This keeps the contrast on *citability*, not on the chatbot being wrong.
+
+---
+
+## 11. Remaining checklist
 
 | Item | Status |
 |---|---|
-| Four notes saved | Done |
-| Click video chips and compare with transcript | Mostly done (see section 9); three checks deferred |
-| Optional note: SWE-bench Verified spread from the report | To do |
-| General-chatbot baseline screenshot for Prompt 1 | To do |
-| Audio Overview pre-generated and 30-second clip cued | To do |
-| Colab dry run (upload notebook, connect T4, run cells) | To do |
-
-### Optional follow-up prompts (not yet run)
-
-**Note title: SWE-bench Spread**
-
-```
-What does the report say specifically about SWE-bench Verified results, and how far apart are the top models? Answer only from the report and cite it.
-```
-
-Expected: top score about 76.8% and the top models within a few points, cited to p. 100 or 101.
-
-**Video absence check**
-
-```
-Does the speaker say anything about benchmark scores or leaderboards when choosing a tool? Answer only from the video.
-```
-
-Expected: "no", possibly with a mention of a hardware benchmark for local models, which is a different thing.
+| Four core prompt notes saved | Done |
+| SWE-bench Spread note | Done (section 6) |
+| Colab dry run | Done (section 9) |
+| General-chatbot baseline | Done (section 10) |
+| Click video chips and compare with transcript | Mostly done (section 12); a few wording checks still deferred |
+| Audio Overview | Generated, titled "Why Your AI Playbook Is Broken." **Confirm you still have a specific 30-second start point cued before presenting** — this hasn't been separately verified. |
+| Quiz | Regenerated with the final prompt (5 questions, all three sources, "team playbook" wording, no security/HumanEval/ClockBench questions) |
 
 ---
 
-## 9. Video citation verification
+## 12. Video citation verification
 
 Checked against the YouTube transcript for the video. Paraphrases only; the transcript is auto-generated, so caption errors are noted below.
 
@@ -302,24 +385,23 @@ Checked against the YouTube transcript for the video. Paraphrases only; the tran
 | Sonar plug-in checks quality gate status, dependency risks and code coverage | 3:30 to 3:35 | The plug-in lets you check quality gate status, assess dependency risks and review code coverage | Same as above |
 | Sonar plug-in scans for secrets | 3:35 | It scans for over 450 secret patterns before content enters the LLM context | "It also scans for secret patterns before content reaches the model." |
 | Developers use about two tools | about 9:39 | A 2026 developer survey found the average experienced developer runs about two tools: a fast editor for daily work (Copilot or Cursor) paired with a heavy lifter for hard multi-file work (Claude Code or Codex) | "The video cites a 2026 developer survey; the survey is not named." |
+| The video does not discuss benchmark scores or leaderboards for tool choice | — | Notebook-side check (not yet independently confirmed via transcript search): the speaker instead recommends choosing by workflow fit, review discipline, context engineering (steering files, project rules, MCP integrations), and practical constraints (budget, hardware, operating system, data privacy) | "The video doesn't weigh in on benchmark scores. It points to workflow fit, review discipline, context engineering, and practical constraints instead." Use cautiously — see Deferred below. |
 
 **Caveats for the 44% figure:** it is Sonar's research about Sonar's own product, the outcome is self-reported ("reported"), and it shows correlation, not cause. The video ties it to developers using SonarQube, not to quality gates in general.
 
 **Caption errors to avoid reading aloud:** "Sonar Cube" (SonarQube), "C-pilot" (Copilot), "Potter" (Claude Code), "Codeex" (Codex).
 
-### Deferred (not yet checked)
+### Deferred (not yet independently checked via transcript search)
 
-| Claim | How to check later |
+| Claim | How to check |
 |---|---|
 | Codex recommended to delegate tasks, run parallel jobs, monitor workflows | Search the transcript for `Codex` or `Codeex` |
 | Claude Code recommended as a customizable agent worked with closely | Search the transcript for `customiz` |
-| The video does not discuss model benchmarks or leaderboards for tool choice | Notebook check run: it answers that the speaker does not, and lists workflow fit, review discipline, context engineering and practical constraints (budget, hardware, operating system, data privacy). Still search the transcript for `benchmark` and `leaderboard` to confirm. A hit about local-model hardware is expected and does not count against this. |
-| The speaker says the top tools are all fairly close in raw quality (new, from the absence-check answer) | Search the transcript for `close`, `similar` or `raw quality` and use the transcript's wording |
-| The four selection criteria (workflow fit, review discipline, context engineering, practical constraints) | Search the transcript for `context engineering`, `review`, `budget` and `hardware` |
+| The benchmark-absence claim above | Notebook answered this clearly, but it hasn't been independently confirmed by searching the transcript for `benchmark` / `leaderboard`. A hit about local-model hardware benchmarking is expected and does not count against this. |
+| The speaker says the top tools are all fairly close in raw quality | Search the transcript for `close`, `similar`, or `raw quality` |
+| "Without leaving the terminal" (the Sonar plug-in line cut off mid-sentence at 3:35) | Search the transcript just after 3:35; only "over 450 secret patterns before content enters the LLM context" is confirmed so far |
 
-Until the deferred checks are done:
-- Do not quote the Codex and Claude Code lines as verified.
-- Do not state on stage that the video never mentions benchmarks. Prompts 2 and 3 mark the video "not addressed" on benchmarks, so if the search finds benchmark advice in the video, those two notes need to be fixed.
+**Current stage guidance:** the benchmark-absence claim is supported by a direct notebook answer (not just an inference from silence), so it's reasonable to say on stage with the "cautiously" phrasing above. The Codex/Claude Code delegation and customization details, and the "close in raw quality" claim, are still unconfirmed — don't quote them as verified.
 
 ### Live-citation timestamps for the deck
 
